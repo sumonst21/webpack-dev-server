@@ -1,21 +1,21 @@
 'use strict';
 
-const helper = require('./helper');
+const runServer = require('./helpers/run-server');
 const config = require('./fixtures/simple-config/webpack.config');
 
 describe('Lazy', () => {
-  afterEach(helper.close);
+  afterEach(runServer.close);
 
   it('without filename option it should throw an error', () => {
     expect(() => {
-      helper.start(config, {
+      runServer.start(config, {
         lazy: true,
       });
     }).toThrow(/'filename' option must be set/);
   });
 
   it('with filename option should not throw an error', (done) => {
-    helper.startBeforeCompilation(
+    runServer.startBeforeCompilation(
       config,
       {
         lazy: true,

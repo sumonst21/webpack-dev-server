@@ -6,7 +6,7 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const runServer = require('./helpers/run-server');
 const config = require('./fixtures/simple-config-other/webpack.config');
 
 describe('Compress', () => {
@@ -15,11 +15,11 @@ describe('Compress', () => {
 
   describe('undefined', () => {
     beforeAll((done) => {
-      server = helper.start(config, {}, done);
+      server = runServer.start(config, {}, done);
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(runServer.close);
 
     it('request to bundle file', (done) => {
       req
@@ -35,7 +35,7 @@ describe('Compress', () => {
 
   describe('true', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = runServer.start(
         config,
         {
           compress: true,
@@ -45,7 +45,7 @@ describe('Compress', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(runServer.close);
 
     it('request to bundle file', (done) => {
       req
@@ -57,7 +57,7 @@ describe('Compress', () => {
 
   describe('false', () => {
     beforeAll((done) => {
-      server = helper.start(
+      server = runServer.start(
         config,
         {
           compress: false,
@@ -67,7 +67,7 @@ describe('Compress', () => {
       req = request(server.app);
     });
 
-    afterAll(helper.close);
+    afterAll(runServer.close);
 
     it('request to bundle file', (done) => {
       req

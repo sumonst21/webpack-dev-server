@@ -1,18 +1,18 @@
 'use strict';
 
 const request = require('supertest');
-const helper = require('./helper');
+const runServer = require('./helpers/run-server');
 const config = require('./fixtures/universal-compiler-config/webpack.config');
 
 describe('UniversalCompiler', () => {
   let server;
   let req;
   beforeAll((done) => {
-    server = helper.start(config, { inline: true }, done);
+    server = runServer.start(config, { inline: true }, done);
     req = request(server.app);
   });
 
-  afterAll(helper.close);
+  afterAll(runServer.close);
 
   it('client bundle should have the inlined the client runtime', (done) => {
     req
